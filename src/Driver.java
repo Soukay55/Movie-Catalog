@@ -4,6 +4,8 @@ public class Driver {
 
     public static String do_part1(String path)
     {
+        File part2_manifest = new File("part2_manifest.txt");
+        File bad_movie_records = new File("bad_movie_records.txt");
         Scanner scanner = null;
         Scanner scanner2=null;
         PrintWriter writerPart2_manifest=null;
@@ -11,10 +13,17 @@ public class Driver {
 
         try
         {
+            part2_manifest.createNewFile();
+            bad_movie_records.createNewFile();
             writerPart2_manifest = new PrintWriter(new FileOutputStream("part2_manifest.txt", true));
             writerBadMovie = new PrintWriter(new FileOutputStream("bad_movie_records.txt", true));
         } catch (FileNotFoundException fnfe) {
             System.out.println("Cannot open the file.");
+            System.exit(0);
+        }
+        catch (IOException ioe)
+        {
+            System.out.println("Cannot create the file.");
             System.exit(0);
         }
 
@@ -40,25 +49,44 @@ public class Driver {
                 String movie = scanner2.nextLine();
                 try {
                     int count=0;
+                    int firstIndexOfGenre=0;
+                    int lastIndexOfGenre=0;
                     for(int i=0;i<movie.length();i++)
                     {
                         if(movie.charAt(i)==',')
                         {
                             count++;
+                            if(count==3)
+                            {
+                                firstIndexOfGenre=i+1;
+                            }
+                            if(count==4)
+                            {
+                                lastIndexOfGenre=i;
+                            }
                         }
                     }
-                    if (count>9)
+                    System.out.println(count);
+                    if (count>9) {
                         throw new ExcessFieldsException();
-
+                    }
+                    else
+                    {
+                        writerPart2_manifest.println(movie.substring(firstIndexOfGenre,lastIndexOfGenre)+".csv");
+                    }
                     //System.out.println(movie);
                 }catch (ExcessFieldsException efe)
                 {
+                    System.out.println(movie);
                     writerBadMovie.println(movie);
                 }
 
             }
 
+
         }
+        writerPart2_manifest.close();
+        writerBadMovie.close();
         return "part2_manifest";
     }
 
