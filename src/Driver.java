@@ -6,6 +6,25 @@ public class Driver {
     {
         File part2_manifest = new File("part2_manifest.txt");
         File bad_movie_records = new File("bad_movie_records.txt");
+        File comedy = new File("comedy.csv");
+        File action = new File("action.csv");
+        File musical = new File("musical.csv");
+        File fantasy = new File("fantasy.csv");
+        File crime = new File("crime.csv");
+        File adventure = new File("adventure.csv");
+        File drama = new File("drama.csv");
+        File biography = new File("biography.csv");
+        File animation = new File("animation.csv");
+        File thriller = new File("thriller.csv");
+        File mystery = new File("mystery.csv");
+        File sci_fi = new File("sci-fi.csv");
+        File documentary = new File("documentary.csv");
+        File romance = new File("romance.csv");
+        File western = new File("western.csv");
+        File horror = new File("horror.csv");
+        File family = new File("family.csv");
+        File [] files = {comedy,action,musical,fantasy,crime,adventure,drama,biography,animation,thriller,mystery,sci_fi,documentary,romance,
+        western,horror,family};
         Scanner scanner = null;
         Scanner scanner2=null;
         PrintWriter writerPart2_manifest=null;
@@ -13,8 +32,11 @@ public class Driver {
 
         try
         {
-            part2_manifest.createNewFile();
-            bad_movie_records.createNewFile();
+            for (int i=0;i<files.length;i++)
+            {
+                files[i].createNewFile();
+            }
+
             writerPart2_manifest = new PrintWriter(new FileOutputStream("part2_manifest.txt", true));
             writerBadMovie = new PrintWriter(new FileOutputStream("bad_movie_records.txt", true));
         } catch (FileNotFoundException fnfe) {
@@ -73,6 +95,7 @@ public class Driver {
                     else
                     {
                         writerPart2_manifest.println(movie.substring(firstIndexOfGenre,lastIndexOfGenre)+".csv");
+
                     }
                     //System.out.println(movie);
                 }catch (ExcessFieldsException efe)
@@ -93,7 +116,6 @@ public class Driver {
     public static void main (String[]args)
     {
         Movie m = new Movie(2004,"I, Robot",115,"Action","PG-13",7.1,"Alex Proyas","Will Smith","Chi Greenwood","Taylor swift");
-        Movie q = new Movie(2004,"I, Robot",115,"Action","PG-13",7.1,"Alex Proyas","Will Smith","Chi Greenwood","Taylor swift");
         System.out.println(m);
 
         String part1_manifest = "part1_manifest.txt";
