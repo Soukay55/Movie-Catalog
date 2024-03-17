@@ -243,7 +243,7 @@ public class Driver {
                     {
                         if (genre.equalsIgnoreCase(VALID_GENRES[i]))
                         {
-                            //write
+                            writerPart2_manifest.println(VALID_GENRES[i]+".csv");
                             same=true;
                             break;
                         }
@@ -251,10 +251,6 @@ public class Driver {
                     if (same==false)
                     {
                         throw new BadGenreException();
-                    }
-                    else {
-                        writerPart2_manifest.println(genre+".csv");
-
                     }
                 }
                 catch (ExcessFieldsException efe)
