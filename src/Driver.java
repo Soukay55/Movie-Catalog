@@ -255,40 +255,7 @@ public class Driver {
                     else {
                         writerPart2_manifest.println(genre+".csv");
 
-//                        switch (genre)
-//                {
-//                    case "comedy":
-//                    {
-//                       writeToFile("comedy.csv",writerGenre,movie);
-//                    }
-//                    case "action":
-//                    {
-//                        writeToFile("action.csv",writerGenre,movie);
-//                    }
-//                    case "adventure":
-//                    {
-//                        writeToFile("adventure.csv",writerGenre,movie);
-//                        File biography = new File("biography.csv");
-//                        File animation = new File("animation.csv");
-//                        File thriller = new File("thriller.csv");
-//                        File mystery = new File("mystery.csv");
-//                        File sci_fi = new File("sci-fi.csv");
-//                        File documentary = new File("documentary.csv");
-//                        File romance = new File("romance.csv");
-//                        File western = new File("western.csv");
-//                        File horror = new File("horror.csv");
-//                        File family = new File("family.csv");
-//                    }
-//                    case "musical":{writeToFile("musical.csv",writerGenre,movie);}
-//                    case "fantasy":{writeToFile("fantasy.csv",writerGenre,movie);}
-//                    case "crime":{writeToFile("crime.csv",writerGenre,movie);}
-//                    case "drama":{writeToFile("drama.csv",writerGenre,movie);}
-//
-//                    writeToFile(genre+".csv",writerGenre,movie);
-//                }
                     }
-
-                    //System.out.println(movie);
                 }
                 catch (ExcessFieldsException efe)
                 {
