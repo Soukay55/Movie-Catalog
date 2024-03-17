@@ -233,7 +233,7 @@ public class Driver {
                             throw new BadDurationException();
                         }
                     }
-                    //invalid genre
+                    //invalid genre this one should be the last
                     if(genre.equals(""))
                     {
                         throw new BadGenreException();
@@ -244,6 +244,7 @@ public class Driver {
                         if (genre.equalsIgnoreCase(VALID_GENRES[i]))
                         {
                             writerPart2_manifest.println(VALID_GENRES[i]+".csv");
+                            //rajouter le movie a son file
                             same=true;
                             break;
                         }
