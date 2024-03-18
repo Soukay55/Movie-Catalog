@@ -6,6 +6,8 @@ public class Driver {
     final static String [] VALID_GENRES= {"musical","comedy","animation","adventure","drama","crime","biography",
     "horror","action","documentary","fantasy","mystery","sci-fi","family","romance","thriller",
     "western"};
+
+    final static String []VALID_RATINGS ={"PG","Unrated","G","R","PG-13","NC-17"};
   static int getIndexChar(String movie,char c,int nbRepetitions)
   {
       int count =0;
@@ -27,6 +29,21 @@ public class Driver {
       return index;
   }
 
+//  static void writeToFile(String movie,String path)
+//  {
+//      PrintWriter writer =null;
+//
+//      try {
+//          writer = new PrintWriter(new FileOutputStream(path));
+//          writer.write(movie+"\n");
+//      }
+//      catch (FileNotFoundException fnfe)
+//      {
+//          System.out.println("file not found");
+//          System.exit(0);
+//      }
+//  }
+
   static int getNumberRepetitionChar(String movie,char c)
   {
       int count=0;
@@ -38,7 +55,7 @@ public class Driver {
       return count;
   }
 
-  static int indexEmptyField(String movie)
+  static boolean indexEmptyField(String movie)
   {
       boolean yes = false;
       int index=0;
@@ -52,20 +69,8 @@ public class Driver {
               }
           }
       }
-      return index;
+      return yes;
   }
-
-//  static boolean containsQuotes(String movie)
-//  {
-//      int index1 = getIndexChar(movie,'"',1);
-//      int index2=getIndexChar(movie,'"',2);
-//      if(index1==0||index2==0)
-//      {
-//          return false;
-//      } else if (movie.charAt()) {
-//
-//      }
-//  }
 
     static boolean containsOnlyNumbers(String str)
     {
@@ -73,6 +78,20 @@ public class Driver {
         for (int i=0;i<str.length();i++)
         {
             if(str.charAt(i)<48||str.charAt(i)>57)
+            {
+                yes = false;
+                break;
+            }
+        }
+        return yes;
+    }
+
+    static boolean containsOnlyNumbersAndPoint(String str)
+    {
+        boolean yes = true;
+        for (int i=0;i<str.length();i++)
+        {
+            if(str.charAt(i)<46||str.charAt(i)>57||str.charAt(i)=='/')
             {
                 yes = false;
                 break;
@@ -105,73 +124,106 @@ public class Driver {
         File [] files = {comedy,action,musical,fantasy,crime,adventure,drama,biography,animation,thriller,mystery,sci_fi,documentary,romance,
         western,horror,family};
 
-        Scanner scanner = null;
-        Scanner scanner2=null;
+        Scanner scannerPart1_manifest = null;
+        Scanner scannerInputFiles=null;
         PrintWriter writerPart2_manifest=null;
         PrintWriter writerBadMovie=null;
-        PrintWriter writerGenre=null;
-
+        PrintWriter writerComedy=null;
+        PrintWriter writerAction=null;
+        PrintWriter writerMusical=null;
+        PrintWriter writerFantasy=null;
+        PrintWriter writerCrime=null;
+        PrintWriter writerAdventure=null;
+        PrintWriter writerDrama=null;
+        PrintWriter writerBiography=null;
+        PrintWriter writerAnimation=null;
+        PrintWriter writerThriller=null;
+        PrintWriter writerMystery=null;
+        PrintWriter writerSci_fi=null;
+        PrintWriter writerDocumentary=null;
+        PrintWriter writerRomance=null;
+        PrintWriter writerWestern=null;
+        PrintWriter writerHorror=null;
+        PrintWriter writerFamily=null;
+        PrintWriter writerGenre = null;
         try
         {
+            writerPart2_manifest = new PrintWriter(new FileOutputStream("part2_manifest.txt"));
+            writerBadMovie = new PrintWriter(new FileOutputStream("bad_movie_records.txt"));
+            writerComedy = new PrintWriter(new FileOutputStream(comedy.getPath()));
+            writerAction = new PrintWriter(new FileOutputStream(action.getPath()));
+            writerMusical = new PrintWriter(new FileOutputStream(musical.getPath()));
+            writerFantasy=new PrintWriter(new FileOutputStream(fantasy.getPath()));
+            writerCrime =new PrintWriter(new FileOutputStream(crime.getPath()));
+            writerAdventure = new PrintWriter(new FileOutputStream(adventure.getPath()));
+            writerDrama = new PrintWriter(new FileOutputStream(drama.getPath()));
+            writerBiography= new PrintWriter(new FileOutputStream(biography.getPath()));
+            writerAnimation = new PrintWriter(new FileOutputStream(animation.getPath()));
+            writerThriller = new PrintWriter(new FileOutputStream(thriller.getPath()));
+            writerMystery = new PrintWriter(new FileOutputStream(mystery.getPath()));
+            writerSci_fi = new PrintWriter(new FileOutputStream(sci_fi.getPath()));
+            writerDocumentary = new PrintWriter(new FileOutputStream(documentary.getPath()));
+            writerRomance = new PrintWriter(new FileOutputStream(romance.getPath()));
+            writerWestern = new PrintWriter(new FileOutputStream(western.getPath()));
+            writerHorror = new PrintWriter(new FileOutputStream(horror.getPath()));
+            writerFamily = new PrintWriter(new FileOutputStream(family.getPath()));
+
+
+            //writing the file names in manifest 2
             for (int i=0;i<files.length;i++)
             {
-                files[i].createNewFile();
+                writerPart2_manifest.println(files[i].getPath());
             }
 
-            writerPart2_manifest = new PrintWriter(new FileOutputStream("part2_manifest.txt", true));
-            writerBadMovie = new PrintWriter(new FileOutputStream("bad_movie_records.txt", true));
+
         } catch (FileNotFoundException fnfe) {
             System.out.println("Cannot open the file.");
             System.exit(0);
         }
-        catch (IOException ioe)
-        {
-            System.out.println("Cannot create the file.");
-            System.exit(0);
-        }
 
         try {
-            scanner = new Scanner(new FileInputStream(path));
+            scannerPart1_manifest= new Scanner(new FileInputStream(path));
         } catch (FileNotFoundException fnfe) {
             System.out.println("Cannot open the file for input.");
             System.exit(0);
         }
 
         //big loop starts here of reading each line of each doc
-        while (scanner.hasNextLine())
+        while (scannerPart1_manifest.hasNextLine())
         {
             //counts the position of the movie in his own file
             int countOfPositionMovie =0;
             String file ="";
             try
             {
-                file = scanner.nextLine();
-                scanner2 = new Scanner(new FileInputStream(file));
+                file = scannerPart1_manifest.nextLine();
+                scannerInputFiles = new Scanner(new FileInputStream(file));
             }catch (FileNotFoundException fnfe) {
                 System.out.println("Cannot open the file for input.");
                 System.exit(0);
             }
-            while (scanner2.hasNextLine())
+            while (scannerInputFiles.hasNextLine())
             {
-                String movie = scanner2.nextLine();
+                String movie = scannerInputFiles.nextLine();
                 int firstIndexOfGenre=0;
                 int lastIndexOfGenre=0;
                 int countOfCommas=0;
                 try {
-                    firstIndexOfGenre=getIndexChar(movie,',',3)+1;
-                    lastIndexOfGenre=getIndexChar(movie,',',4);
+//                    firstIndexOfGenre=getIndexChar(movie,',',3)+1;
+//                    lastIndexOfGenre=getIndexChar(movie,',',4);
                     countOfCommas=getNumberRepetitionChar(movie,',');
                     int ignoreCommas=0;
-                    int firstIndexOfApostrophe = getIndexChar(movie,'"',1);
-                    int lastIndexOfApostrophe = getIndexChar(movie,'"',2);
+                    int firstIndexOfQuotes = getIndexChar(movie,'"',1);
+                    int lastIndexOfQuotes = getIndexChar(movie,'"',2);
 
                     //getting right number of commas
-                    String titleInQuotes = movie.substring(firstIndexOfApostrophe,lastIndexOfApostrophe+1);
+                    String titleInQuotes = movie.substring(firstIndexOfQuotes,lastIndexOfQuotes+1);
                     if(titleInQuotes.contains(",")) {
                         ignoreCommas = getNumberRepetitionChar(titleInQuotes, ',');
                         countOfCommas -= ignoreCommas;
                     }
 
+                    //all types of titles
                     String title = movie.substring(getIndexChar(movie,',',1)+1,getIndexChar(movie,',',2+ignoreCommas));
 
                     //this is the genre of the movie
@@ -198,7 +250,6 @@ public class Driver {
                     }
 
                     //invalid or missing year
-
                     String year = movie.substring(0,getIndexChar(movie,',',1));
                     if(year==null||year.equals(""))
                     {
@@ -218,7 +269,7 @@ public class Driver {
                             throw new BadYearException();
                         }
 
-                    //invalid duration A FAIRE NE MARCHE PAS
+                    //invalid duration
                     int indexDuration1 = getIndexChar(movie,',',ignoreCommas+2)+1;
                     int indexDuration2 = getIndexChar(movie,',',ignoreCommas+3);
                     String duration = movie.substring(indexDuration1,indexDuration2);
@@ -233,23 +284,89 @@ public class Driver {
                             throw new BadDurationException();
                         }
                     }
-                    //invalid genre this one should be the last
+                    //invalid rating
+                    int indexRating1 = getIndexChar(movie,',',4+ignoreCommas)+1;
+                    int indexRating2 = getIndexChar(movie,',',5+ignoreCommas);
+                    String rating = movie.substring(indexRating1,indexRating2);
+                    boolean sameRating = false;
+                    if(rating.equals(""))
+                    {
+                        throw new BadDurationException();
+                    }
+                    for (int i=0;i< VALID_RATINGS.length;i++)
+                    {
+                        if (rating.equals(VALID_RATINGS[i]))
+                        {
+                            sameRating = true;
+                            break;
+                        }
+                    }
+                    if(sameRating==false)
+                    {
+                        throw new BadRatingException();
+                    }
+
+                    //invalid score
+                    int indexScore1 = getIndexChar(movie,',',5+ignoreCommas)+1;
+                    int indexScore2 = getIndexChar(movie,',',6+ignoreCommas);
+                    String score = movie.substring(indexScore1,indexScore2);
+                    if(score.equals("")||!containsOnlyNumbersAndPoint(score))
+                    {
+                        throw new BadScoreException();
+                    }
+                    else {
+                       double scoreDouble = Double.parseDouble(score);
+                        if(scoreDouble<0||scoreDouble>10)
+                        {
+                            throw new BadScoreException();
+                        }
+                    }
+                    //missing title
+                    if(movie.charAt(getIndexChar(movie,',',1))==movie.charAt(getIndexChar(movie,',',1)+1))
+                    {
+                        throw new BadTitleException();
+                    }
+                    //missing name
+                    String names = movie.substring(getIndexChar(movie,',',6+ignoreCommas));
+                    if(indexEmptyField(names)==true||names.charAt(names.length()-1)==',')
+                    {
+                        throw new BadNameException();
+                    }
+                    //invalid genre
                     if(genre.equals(""))
                     {
                         throw new BadGenreException();
                     }
-                    boolean same=false;
+                    boolean sameGenre=false;
                     for(int i=0;i< VALID_GENRES.length;i++)
                     {
+                        //genre valid
                         if (genre.equalsIgnoreCase(VALID_GENRES[i]))
                         {
-                            writerPart2_manifest.println(VALID_GENRES[i]+".csv");
-                            //rajouter le movie a son file
-                            same=true;
+                            switch (genre){
+                                case "Comedy":{writerComedy.write(movie + "\n");break;}
+                                case "Action":{writerAction.write(movie + "\n");break;}
+                                case "Adventure":{writerAdventure.write(movie + "\n");break;}
+                                case "Animation":{writerAnimation.write(movie + "\n");break;}
+                                case "Biography":{writerBiography.write(movie + "\n");break;}
+                                case "Crime":{writerCrime.write(movie + "\n");break;}
+                                case "Documentary":{writerDocumentary.write(movie + "\n");break;}
+                                case "Drama":{writerDrama.write(movie + "\n");break;}
+                                case "Family":{writerFamily.write(movie + "\n");break;}
+                                case "Fantasy":{writerFantasy.write(movie + "\n");break;}
+                                case "Horror":{writerHorror.write(movie + "\n");break;}
+                                case "Musical":{writerMusical.write(movie + "\n");break;}
+                                case "Mystery":{writerMystery.write(movie + "\n");break;}
+                                case "Romance":{writerRomance.write(movie + "\n");break;}
+                                case "Sci-fi":{writerSci_fi.write(movie + "\n");break;}
+                                case "Thriller":{writerThriller.write(movie + "\n");break;}
+                                case "Western":{writerWestern.write(movie + "\n");break;}
+                            }
+                            sameGenre=true;
                             break;
                         }
                     }
-                    if (same==false)
+                    if (sameGenre==false)
                     {
                         throw new BadGenreException();
                     }
@@ -273,18 +390,49 @@ public class Driver {
                 {
                     writerBadMovie.println("Semantic error: Invalid duration: "+movie+"\nin file: "+file+" position: "+(countOfPositionMovie+1));
                 }
+                catch (BadRatingException bre)
+                {
+                    writerBadMovie.println("Semantic error: Invalid rating: "+movie+"\nin file: "+file+" position: "+(countOfPositionMovie+1));
+                }
+                catch (BadScoreException bse)
+                {
+                    writerBadMovie.println("Semantic error: Invalid score: "+movie+"\nin file: "+file+" position: "+(countOfPositionMovie+1));
+                }
+                catch (BadTitleException bte)
+                {
+                    writerBadMovie.println("Semantic error: Invalid title: "+movie+"\nin file: "+file+" position: "+(countOfPositionMovie+1));
+                }
+                catch (BadNameException bte)
+                {
+                    writerBadMovie.println("Semantic error: Invalid name: "+movie+"\nin file: "+file+" position: "+(countOfPositionMovie+1));
+                }
                 catch (BadGenreException bge)
                 {
                     writerBadMovie.println("Semantic error: Invalid genre: "+movie+"\nin file: "+file+" position: "+(countOfPositionMovie+1));
                 }
-
-
                 countOfPositionMovie++;
 
             }
         }
         writerPart2_manifest.close();
         writerBadMovie.close();
+        writerComedy.close();
+        writerAction.close();
+        writerAdventure.close();
+        writerAnimation.close();
+        writerBiography.close();
+        writerCrime.close();
+        writerDocumentary.close();
+        writerDrama.close();
+        writerFamily.close();
+        writerFantasy.close();
+        writerHorror.close();
+        writerMusical.close();
+        writerMystery.close();
+        writerRomance.close();
+        writerSci_fi.close();
+        writerThriller.close();
+        writerWestern.close();
         return "part2_manifest";
     }
 
@@ -296,13 +444,6 @@ public class Driver {
         String part1_manifest = "part1_manifest.txt";
 
         String part2_manifest= do_part1(part1_manifest);
-
-
-
-
-
-
-
 
 
     }
