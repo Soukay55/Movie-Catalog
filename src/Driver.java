@@ -433,17 +433,64 @@ public class Driver {
         writerSci_fi.close();
         writerThriller.close();
         writerWestern.close();
-        return "part2_manifest";
+        return part2_manifest.getPath();
+    }
+
+    public static String do_part2(String path)
+    {
+        Scanner scannerPart2_manifest = null;
+        Scanner genre = null;
+        String fileGenre=null;
+        Movie [] movies = new Movie[250];
+        try {
+            scannerPart2_manifest= new Scanner(new FileInputStream(path));
+        }
+        catch (FileNotFoundException fnfe)
+        {
+            System.out.println("File not found");
+            System.exit(0);
+        }
+        while (scannerPart2_manifest.hasNextLine())
+        {
+
+            int countMovies=0;//?
+            int indexArray=0;//yes
+            String movie="";//yes
+            fileGenre = scannerPart2_manifest.nextLine();
+            try{
+                genre = new Scanner(new FileInputStream(fileGenre));
+            }
+            catch (FileNotFoundException fnfe) {
+                System.out.println("File not found");
+                System.exit(0);
+            }
+            while (genre.hasNextLine())
+            {
+                //exception raised need to fix
+//                movie=genre.nextLine();
+//                String []movieArray = movie.split(",");
+//                movies[indexArray]=new Movie(Integer.parseInt(movieArray[0]),movieArray[1],Integer.parseInt(movieArray[2]),movieArray[3],movieArray[4],Double.parseDouble(movieArray[5])
+//                ,movieArray[6],movieArray[7],movieArray[8],movieArray[9]);
+//                System.out.println(movies[0]);
+//                indexArray++;
+            }
+        }
+        return "part3_manifest";
     }
 
     public static void main (String[]args)
     {
         Movie m = new Movie(2004,"I, Robot",115,"Action","PG-13",7.1,"Alex Proyas","Will Smith","Chi Greenwood","Taylor swift");
-        System.out.println(m);
 
         String part1_manifest = "part1_manifest.txt";
 
         String part2_manifest= do_part1(part1_manifest);
+
+        String part3_manifest = do_part2(part2_manifest);
+
+
+
+
 
 
     }
