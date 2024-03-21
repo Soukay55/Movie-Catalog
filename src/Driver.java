@@ -100,6 +100,107 @@ public class Driver {
         return yes;
     }
 
+    static int getNbIgnoredCommas(String movie)
+    {
+        int ignoreCommas =0;
+        int firstIndexOfQuotes = getIndexChar(movie,'"',1);
+        int lastIndexOfQuotes = getIndexChar(movie,'"',2);
+
+        //getting right number of commas
+        String titleInQuotes = movie.substring(firstIndexOfQuotes,lastIndexOfQuotes+1);
+        if(titleInQuotes.contains(",")) {
+            ignoreCommas = getNumberRepetitionChar(titleInQuotes, ',');
+        }
+        return ignoreCommas;
+    }
+
+
+    static int getYear(String movie)
+    {
+        String year = movie.substring(0,getIndexChar(movie,',',1));
+
+        return Integer.parseInt(year);
+    }
+
+    static String getTitle(String movie)
+    {
+        int ignoreCommas = getNbIgnoredCommas(movie);
+        String title = movie.substring(getIndexChar(movie,',',1)+1,getIndexChar(movie,',',2+ignoreCommas));
+        return title;
+    }
+
+    static int getDuration(String movie)
+    {
+        int ignoreCommas = getNbIgnoredCommas(movie);
+        int indexDuration1 = getIndexChar(movie,',',ignoreCommas+2)+1;
+        int indexDuration2 = getIndexChar(movie,',',ignoreCommas+3);
+        String duration = movie.substring(indexDuration1,indexDuration2);
+        return Integer.parseInt(duration);
+    }
+
+    static String getRating(String movie)
+    {
+        int ignoreCommas = getNbIgnoredCommas(movie);
+        int indexRating1 = getIndexChar(movie,',',4+ignoreCommas)+1;
+        int indexRating2 = getIndexChar(movie,',',5+ignoreCommas);
+        String rating = movie.substring(indexRating1,indexRating2);
+        return rating;
+    }
+
+    static double getScore(String movie)
+    {
+        int ignoreCommas = getNbIgnoredCommas(movie);
+        int indexScore1 = getIndexChar(movie,',',5+ignoreCommas)+1;
+        int indexScore2 = getIndexChar(movie,',',6+ignoreCommas);
+        String score = movie.substring(indexScore1,indexScore2);
+        return Double.parseDouble(score);
+    }
+
+    static String getGenre(String movie)
+    {
+        int ignoreCommas = getNbIgnoredCommas(movie);
+        //this is the genre of the movie
+        int firstIndexOfGenre=getIndexChar(movie,',',3+ignoreCommas)+1;
+        int lastIndexOfGenre=getIndexChar(movie,',',4+ignoreCommas);
+        String genre = movie.substring(firstIndexOfGenre,lastIndexOfGenre);
+        return genre;
+    }
+
+    static String getDirector(String movie)
+    {
+        int ignoreCommas = getNbIgnoredCommas(movie);
+        int indexDir = getIndexChar(movie,',',6+ignoreCommas)+1;
+        int indexDir2 = getIndexChar(movie,',',7+ignoreCommas);
+        return movie.substring(indexDir,indexDir2);
+
+    }
+
+    static String getActor1(String movie)
+    {
+        int ignoreCommas = getNbIgnoredCommas(movie);
+        int index1 = getIndexChar(movie,',',7+ignoreCommas)+1;
+        int index2 = getIndexChar(movie,',',8+ignoreCommas);
+        return movie.substring(index1,index2);
+
+    }
+    static String getActor2(String movie)
+    {
+        int ignoreCommas = getNbIgnoredCommas(movie);
+        int index1 = getIndexChar(movie,',',8+ignoreCommas)+1;
+        int index2 = getIndexChar(movie,',',9+ignoreCommas);
+        return movie.substring(index1,index2);
+
+    }
+    static String getActor3(String movie)
+    {
+        int ignoreCommas = getNbIgnoredCommas(movie);
+        int index1 = getIndexChar(movie,',',9+ignoreCommas)+1;
+        return movie.substring(index1);
+
+    }
+
+
+
     public static String do_part1(String path)
     {
         File part2_manifest = new File("part2_manifest.txt");
@@ -209,10 +310,8 @@ public class Driver {
                 int lastIndexOfGenre=0;
                 int countOfCommas=0;
                 try {
-//                    firstIndexOfGenre=getIndexChar(movie,',',3)+1;
-//                    lastIndexOfGenre=getIndexChar(movie,',',4);
                     countOfCommas=getNumberRepetitionChar(movie,',');
-                    int ignoreCommas=0;
+                    int ignoreCommas= 0;
                     int firstIndexOfQuotes = getIndexChar(movie,'"',1);
                     int lastIndexOfQuotes = getIndexChar(movie,'"',2);
 
@@ -487,6 +586,5 @@ public class Driver {
         String part2_manifest= do_part1(part1_manifest);
 
         //String part3_manifest = do_part2(part2_manifest);
-
     }
 }
