@@ -1,0 +1,58 @@
+Semantic error: Invalid genre: 1990,Predator 2,103,"Action",R,6.2,Stephen Hopkins,Adam Baldwin,Robert Davi,Kevin Peter Hall
+in file: Movies1990.csv position: 4
+Semantic error: Invalid score: 1990,Dick Tracy,105,Action,PG,"6.1",Warren Beatty,Charlie Korsmo,Warren Beatty,Seymour Cassel
+in file: Movies1990.csv position: 14
+Syntax error: Excess fields: 1990,Total Recall,113,Action,R,7.5,Paul Verhoeven,Ronny Cox,Rachel Ticotin,Marshall Bell,actor 4?
+in file: Movies1990.csv position: 16
+Semantic error: Invalid year: 2991,Hudson Hawk,100,Action,R,5.7,Michael Lehmann,Bruce Willis,James Coburn,Richard E. Grant
+in file: Movies1991.csv position: 10
+Semantic error: Invalid rating: 1991,Bill & Ted's Bogus Journey,93,Adventure,PJ,6.2,Peter Hewitt,Keanu Reeves,George Carlin,Alex Winter
+in file: Movies1991.csv position: 16
+Semantic error: Invalid duration: 1991,Hook,333,Adventure,PG,6.7,Steven Spielberg,Robin Williams,Julia Roberts,Bob Hoskins
+in file: Movies1991.csv position: 26
+Semantic error: Invalid year: l992,Unforgiven,131,Drama,R,8.3,Clint Eastwood,Clint Eastwood,Morgan Freeman,Frances Fisher
+in file: Movies1992.csv position: 21
+Semantic error: Invalid genre: 1992,Batman Returns,126,Aktion,PG-13,7,Tim Burton,Michael Gough,Vincent Schiavelli,Andrew Bryniarski
+in file: Movies1992.csv position: 27
+Semantic error: Invalid score: 1992,Aladdin,90,Adventure,G,80,Ron Clements,Robin Williams,Frank Welker,Scott Weinger
+in file: Movies1992.csv position: 29
+Semantic error: Invalid duration: 1993,"Blood In, Blood Out",330,Crime,R,8,Taylor Hackford,Delroy Lindo,Jesse Borrego,Raymond Cruz
+in file: Movies1993.csv position: 7
+Semantic error: Invalid rating: 1993,Dazed and Confused,102,Comedy,RRR,7.7,Richard Linklater,Milla Jovovich,Adam Goldberg,Cole Hauser
+in file: Movies1993.csv position: 8
+Semantic error: Invalid name: 1993,Hocus Pocus,96,Comedy,PG,6.7,,Vinessa Shaw,Omri Katz,Larry Bagby
+in file: Movies1993.csv position: 22
+Semantic error: Invalid name: 1994,There Goes My Baby,99,Comedy,R,6.4,Floyd Mutrux,Ricky Schroder,,Seymour Cassel
+in file: Movies1994.csv position: 1
+Semantic error: Invalid score: 1994,Wyatt Earp,212,Adventure,PG-13,,Lawrence Kasdan,Dennis Quaid,Catherine O'Hara,Isabella Rossellini
+in file: Movies1994.csv position: 16
+Semantic error: Invalid duration: 1994,Richie Rich,,Comedy,PG,5.2,Donald Petrie,Macaulay Culkin,John Larroquette,Jonathan Hyde
+in file: Movies1994.csv position: 20
+Semantic error: Invalid score: 1996,Bound,109,Krime,R,,Lana Wachowski,Christopher Meloni,Kevin Michael Richardson,Peter Spellos
+in file: Movies1996.csv position: 9
+Semantic error: Invalid year: l996,Bogus,110,Comedy,,5.3,Norman Jewison,Haley Joel Osment,Nancy Travis,Andrea Martin
+in file: Movies1996.csv position: 11
+Semantic error: Invalid year: -1996,The Fan,116,Action,R,,Tony Scott,Robert De Niro,Kurt Fuller,Ellen Barkin
+in file: Movies1996.csv position: 28
+Semantic error: Invalid duration: 1996,Striptease,1170,Comedy,R,4.3,Andrew Bergman,Demi Moore,Rumer Willis,Paul Guilfoyle
+in file: Movies1996.csv position: 45
+Semantic error: Invalid year: 2996,Broken Arrow,900,Action,R,60,John Woo,Delroy Lindo,Samantha Mathis,Bob Gunton
+in file: Movies1996.csv position: 67
+Semantic error: Invalid name: 1997,Chasing Amy,113,Comedy,R,7.3,Kevin Smith,Matt Damon,Ethan Suplee,
+in file: Movies1997.csv position: 27
+Semantic error: Invalid name: 1999,Crazy in Alabama,111,Komedy,PG-13,6.3,Antonio Banderas,Meat Loaf,,Noah Emmerich
+in file: Movies1999.csv position: 13
+Semantic error: Invalid year: l999,A Dog of Flanders,,,PG,6.3,Kevin Brodie,Bruce McGill,Cheryl Ladd,Jack Warden
+in file: Movies1999.csv position: 16
+Semantic error: Invalid year: 2999,Foolish,384,Comedy,R,4.3,Dave Meyers,,Clifton Powell,Marla Gibbs
+in file: Movies1999.csv position: 30
+Semantic error: Invalid genre: 1999,Snow Falling on Cedars,127,Druma,PG-13,6.8,Scott Hicks,Rick Yune,Reeve Carney,Daniel von Bargen
+in file: Movies1999.csv position: 52
+Semantic error: Invalid rating: 1999,Random Hearts,133,Drama,RRR,5.1,Sydney Pollack,Harrison Ford,Kristin Scott Thomas,Bill Cobbs
+in file: Movies1999.csv position: 80
+Semantic error: Invalid year: -1999,The Bone Collector,118,Crime,,6.7,Phillip Noyce,Denzel Washington,Angelina Jolie Pitt,Leland Orser
+in file: Movies1999.csv position: 103
+Semantic error: Invalid genre: 1999,The Thomas Crown Affair,113,Krime,R,6.8,John McTiernan,Mark Margolis,Faye Dunaway,Denis Leary
+in file: Movies1999.csv position: 106
+Semantic error: Invalid title: 1999,,102,Adventure,PG,7.3,Dean Parisot,Alan Rickman,Enrico Colantoni,Robin Sachs
+in file: Movies1999.csv position: 107
