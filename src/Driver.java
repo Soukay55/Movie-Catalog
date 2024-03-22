@@ -1,4 +1,5 @@
 import javax.swing.plaf.synth.SynthDesktopIconUI;
+import java.nio.channels.ScatteringByteChannel;
 import java.util.Scanner;
 import java.io.*;
 public class Driver {
@@ -576,7 +577,17 @@ public class Driver {
 //        }
 //        return "part3_manifest";
 //    }
+//-------------------------SECTION WISSEM DEBUT----------------------------
 
+    public static void do_part2(){
+        File manifest = new File("part3_manifest.txt");
+        try{
+            manifest.createNewFile();
+        }catch(IOException ioe){
+            System.out.println("oups");
+        }
+    }
+//-------------------------SECTION WISSEM FIN----------------------------
     public static void main (String[]args)
     {
         Movie m = new Movie(2004,"I, Robot",115,"Action","PG-13",7.1,"Alex Proyas","Will Smith","Chi Greenwood","Taylor swift");
