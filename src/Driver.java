@@ -1,5 +1,3 @@
-import javax.swing.plaf.synth.SynthDesktopIconUI;
-import java.nio.channels.ScatteringByteChannel;
 import java.util.Scanner;
 import java.io.*;
 public class Driver {
@@ -540,6 +538,8 @@ public class Driver {
     {
         Scanner scannerPart2_manifest = null;
         Scanner genreFile = null;
+        FileOutputStream fos = null;
+        ObjectOutputStream obs = null;
         String fileGenre=null;
         try {
             scannerPart2_manifest= new Scanner(new FileInputStream(path));
@@ -588,9 +588,26 @@ public class Driver {
                         , getDirector(movie), getActor1(movie), getActor2(movie), getActor3(movie));
 
             }
-
-            //serialize the array HERE
-
+//            //serialize the array HERE this code works but the extension .ser doesnt exist in intellij
+//            try {
+//               // fos = new FileOutputStream (genre.toLowerCase()+".ser");
+//                obs = new ObjectOutputStream(fos);
+//                for(int i=0;i<movies.length;i++)
+//                {
+//                    obs.writeObject(movies[i]+"\n");
+//                }
+//                obs.close();
+//                fos.close();
+//            }
+//            catch(FileNotFoundException fnfe) {
+//
+//                System.out.println("noo");
+//                System.exit(0);
+//            } catch (IOException e) {
+//                System.out.println("noo");
+//                System.exit(0);
+//
+//            }
             genreFile.close();
         }
         return "part3_manifest";
