@@ -110,7 +110,7 @@ public class Movie implements Serializable {
 
     public String toString()
     {
-        return this.year+",\""+this.title+"\","+this.duration+","+this.genre+","+this.rating+","+this.score+","+this.director+","+this.actor1+","
+        return this.year+","+this.title+","+this.duration+","+this.genre+","+this.rating+","+this.score+","+this.director+","+this.actor1+","
                 +this.actor2+","+this.actor3;
     }
 
