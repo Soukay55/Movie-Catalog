@@ -3,6 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/Movies1991.csv" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/Movies1996.csv" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/adventure.ser" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/animation.ser" charset="windows-1252" />
     <file url="PROJECT" charset="windows-1252" />
   </component>
 </project>

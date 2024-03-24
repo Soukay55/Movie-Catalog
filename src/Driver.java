@@ -534,7 +534,7 @@ public class Driver {
         return part2_manifest.getPath();
     }
 
-    public static String do_part2Souk(String path)
+    public static String do_part2(String path)
     {
         Scanner scannerPart2_manifest = null;
         Scanner genreFile = null;
@@ -588,33 +588,33 @@ public class Driver {
                         , getDirector(movie), getActor1(movie), getActor2(movie), getActor3(movie));
 
             }
-//            //serialize the array HERE this code works but the extension .ser doesnt exist in intellij
-//            try {
-//               // fos = new FileOutputStream (genre.toLowerCase()+".ser");
-//                obs = new ObjectOutputStream(fos);
-//                for(int i=0;i<movies.length;i++)
-//                {
-//                    obs.writeObject(movies[i]+"\n");
-//                }
-//                obs.close();
-//                fos.close();
-//            }
-//            catch(FileNotFoundException fnfe) {
-//
-//                System.out.println("noo");
-//                System.exit(0);
-//            } catch (IOException e) {
-//                System.out.println("noo");
-//                System.exit(0);
-//
-//            }
+            //serialize the array HERE this code works but the extension .ser doesnt exist in intellij
+            try {
+                fos = new FileOutputStream (genre.toLowerCase()+".bin");
+                obs = new ObjectOutputStream(fos);
+                for(int i=0;i<movies.length;i++)
+                {
+                    obs.writeObject(movies[i]+"\n");
+                }
+                obs.close();
+                fos.close();
+            }
+            catch(FileNotFoundException fnfe) {
+
+                System.out.println("noo");
+                System.exit(0);
+            } catch (IOException e) {
+                System.out.println("noo");
+                System.exit(0);
+
+            }
             genreFile.close();
         }
         return "part3_manifest";
     }
 //-------------------------SECTION WISSEM DEBUT----------------------------
 
-    public static void do_part2(){
+    public static void do_part2Wis(){
         File manifest = new File("part3_manifest.txt");
         try{
             manifest.createNewFile();
@@ -622,15 +622,15 @@ public class Driver {
             System.out.println("oups");
         }
     }
-//-------------------------SECTION WISSEM FIN----------------------------
+//-------------------------SECTION WISSEM FIN-------------------------------
     public static void main (String[]args)
     {
-        Movie m = new Movie(2004,"I, Robot",115,"Action","PG-13",7.1,"Alex Proyas","Will Smith","Chi Greenwood","Taylor swift");
+        Movie M = new Movie(2004,"I, Robot",115,"Action","PG-13",7.1,"Alex Proyas","Will Smith","Chi Greenwood","Taylor swift");
 
         String part1_manifest = "part1_manifest.txt";
 
         String part2_manifest= do_part1(part1_manifest);
 
-        String part3_manifest = do_part2Souk(part2_manifest);
+        String part3_manifest = do_part2(part2_manifest);
     }
 }
