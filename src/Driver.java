@@ -28,20 +28,6 @@ public class Driver {
       return index;
   }
 
-//  static void writeToFile(String movie,String path)
-//  {
-//      PrintWriter writer =null;
-//
-//      try {
-//          writer = new PrintWriter(new FileOutputStream(path));
-//          writer.write(movie+"\n");
-//      }
-//      catch (FileNotFoundException fnfe)
-//      {
-//          System.out.println("file not found");
-//          System.exit(0);
-//      }
-//  }
 
   static int getNumberRepetitionChar(String movie,char c)
   {
@@ -536,11 +522,14 @@ public class Driver {
 
     public static String do_part2(String path)
     {
+        PrintWriter writer = null;
         Scanner scannerPart2_manifest = null;
         Scanner genreFile = null;
         FileOutputStream fos = null;
         ObjectOutputStream obs = null;
         String fileGenre=null;
+        File serFile =null;
+        File part3_manifest=null;
         try {
             scannerPart2_manifest= new Scanner(new FileInputStream(path));
         }
@@ -552,9 +541,10 @@ public class Driver {
         while (scannerPart2_manifest.hasNextLine())
         {
 
-            int countMovies=0;//?
-            int indexArray=0;//yes
-            String movie="";//yes
+            int countMovies=0;
+            int indexArray=0;
+            String movie="";
+            String genreSerForSerFile =null;
             fileGenre = scannerPart2_manifest.nextLine();
             try{
                 genreFile = new Scanner(new FileInputStream(fileGenre));
@@ -571,58 +561,73 @@ public class Driver {
             System.out.println(countMovies);
             genreFile.close();
             Movie [] movies = new Movie[countMovies];
-            String genre ="";
 
             try{
                 genreFile = new Scanner(new FileInputStream(fileGenre));
+                genreSerForSerFile = fileGenre.substring(0,getIndexChar(fileGenre,'.',1));
+                serFile = new File(genreSerForSerFile+".ser");
+                serFile.createNewFile();
+                part3_manifest = new File("part3_manifest.txt");
+                part3_manifest.createNewFile();
             }
             catch (FileNotFoundException fnfe) {
                 System.out.println("File not found");
                 System.exit(0);
             }
+            catch (IOException fnfe) {
+                System.out.println("Cant create");
+                System.exit(0);
+            }
             for (int i=0;i<movies.length;i++) {
                 movie = genreFile.nextLine();
-                genre = getGenre(movie);
 
                 movies[i] = new Movie(getYear(movie), getTitle(movie), getDuration(movie), getGenre(movie), getRating(movie), getScore(movie)
                         , getDirector(movie), getActor1(movie), getActor2(movie), getActor3(movie));
 
             }
+            genreFile.close();
             //serialize the array HERE this code works but the extension .ser doesnt exist in intellij
             try {
-                fos = new FileOutputStream (genre.toLowerCase()+".bin");
+                fos = new FileOutputStream (genreSerForSerFile.toLowerCase()+".ser");
                 obs = new ObjectOutputStream(fos);
-                for(int i=0;i<movies.length;i++)
-                {
-                    obs.writeObject(movies[i]+"\n");
-                }
+                    for (int i = 0; i < movies.length; i++) {
+                        obs.writeObject(movies[i] + "\n");
+                    }
                 obs.close();
                 fos.close();
+                writer = new PrintWriter(new FileOutputStream(part3_manifest.getPath()));
             }
             catch(FileNotFoundException fnfe) {
 
-                System.out.println("noo");
+                System.out.println("file not found");
                 System.exit(0);
             } catch (IOException e) {
-                System.out.println("noo");
+                System.out.println("IO exception");
                 System.exit(0);
-
             }
-            genreFile.close();
+            writer.println("musical.ser");
+            writer.println("comedy.ser");
+            writer.println("animation.ser");
+            writer.println("adventure.ser");
+            writer.println("drama.ser");
+            writer.println("crime.ser");
+            writer.println("biography.ser");
+            writer.println("horror.ser");
+            writer.println("action.ser");
+            writer.println("documentary.ser");
+            writer.println("fantasy.ser");
+            writer.println("mystery.ser");
+            writer.println("sci-fi.ser");
+            writer.println("family.ser");
+            writer.println("western.ser");
+            writer.println("romance.ser");
+            writer.println("thriller.ser");
+            writer.close();
         }
-        return "part3_manifest";
+        scannerPart2_manifest.close();
+        return part3_manifest.getPath();
     }
-//-------------------------SECTION WISSEM DEBUT----------------------------
 
-    public static void do_part2Wis(){
-        File manifest = new File("part3_manifest.txt");
-        try{
-            manifest.createNewFile();
-        }catch(IOException ioe){
-            System.out.println("oups");
-        }
-    }
-//-------------------------SECTION WISSEM FIN-------------------------------
     public static void main (String[]args)
     {
         Movie M = new Movie(2004,"I, Robot",115,"Action","PG-13",7.1,"Alex Proyas","Will Smith","Chi Greenwood","Taylor swift");
