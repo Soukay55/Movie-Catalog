@@ -558,7 +558,7 @@ public class Driver {
                 genreFile.nextLine();
                 countMovies++;
             }
-            System.out.println(countMovies);
+            //System.out.println(countMovies);
             genreFile.close();
             Movie [] movies = new Movie[countMovies];
 
@@ -591,7 +591,7 @@ public class Driver {
                 fos = new FileOutputStream (genreSerForSerFile.toLowerCase()+".ser");
                 obs = new ObjectOutputStream(fos);
                     for (int i = 0; i < movies.length; i++) {
-                        obs.writeObject(movies[i] + "\n");
+                        obs.writeObject(movies[i]);
                     }
                 obs.close();
                 fos.close();
@@ -628,14 +628,73 @@ public class Driver {
         return part3_manifest.getPath();
     }
 
+    static Movie [][] do_part3(String path)
+    {
+        Movie [][] allMovies = new Movie[17][173];
+        Scanner scannerManifest = null;
+        ObjectInputStream ois = null;
+        String serFile=null;
+        int countForArray =0;
+        try {
+            scannerManifest = new Scanner(new FileInputStream(path));
+        }catch (FileNotFoundException fnfe)
+        {
+            System.out.println("Cant open");
+            System.exit(0);
+        }
+        while (scannerManifest.hasNextLine())
+        {
+            serFile = scannerManifest.nextLine();
+            int countOfMovies=0;
+            try {
+                ois = new ObjectInputStream(new FileInputStream(serFile));
+
+            }catch (FileNotFoundException e)
+            {
+                System.out.println("Cant open");
+                System.exit(0);
+            }
+            catch (IOException e)
+            {
+                System.out.println(" exception 1");
+            }
+
+            try
+            {
+                    for (int i = 0; i < allMovies[0].length; i++) {
+                        allMovies[countForArray][i] = (Movie) ois.readObject();
+                    }
+                ois.close();
+            }
+            catch (ClassNotFoundException e)
+            {
+                System.out.println("exception");
+                System.exit(0);
+            }
+            catch (IOException e){}
+            countForArray++;
+        }
+        return allMovies;
+    }
+
     public static void main (String[]args)
     {
-        Movie M = new Movie(2004,"I, Robot",115,"Action","PG-13",7.1,"Alex Proyas","Will Smith","Chi Greenwood","Taylor swift");
+        Movie [][] allMovies;
 
         String part1_manifest = "part1_manifest.txt";
 
         String part2_manifest= do_part1(part1_manifest);
 
         String part3_manifest = do_part2(part2_manifest);
+
+        allMovies = do_part3(part3_manifest);
+
+        //testing the array,
+        for (int i=0;i<173;i++)
+        {
+            System.out.println(allMovies[4][i]);
+        }
+        //ARRAY IS DONE NOW ITS TIME FOR THE MENU
+
     }
 }
