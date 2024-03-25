@@ -716,8 +716,23 @@ public class Driver {
                     break;
 
                 }
+                //TO DO
                 case "n": {
-                    System.out.println("You chose n");
+                    System.out.println("Navigating "+previousGenreChoice+" movies ("+getNumberOfMovies(previousRow)+")");
+                    System.out.print("Enter your choice: ");
+                    int n = input.nextInt();
+                    if(n==0)
+                    {
+                        break;
+                    }
+                    else if(n>0)
+                    {
+                        System.out.println("The movie at n = "+n+": "+allMovies[previousRow][n-1]);
+                    }
+                    else
+                    {
+                        System.out.println("The movie at n = "+n+": "+allMovies[previousRow][n-1]);
+                    }
                     break;
 
                 }
