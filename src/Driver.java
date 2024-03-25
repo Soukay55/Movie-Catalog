@@ -1,3 +1,4 @@
+import java.lang.invoke.SwitchPoint;
 import java.util.Scanner;
 import java.io.*;
 public class Driver {
@@ -7,6 +8,8 @@ public class Driver {
     "western"};
 
     final static String []VALID_RATINGS ={"PG","Unrated","G","R","PG-13","NC-17"};
+
+    static Movie [][] allMovies;
   static int getIndexChar(String movie,char c,int nbRepetitions)
   {
       int count =0;
@@ -27,7 +30,6 @@ public class Driver {
       }
       return index;
   }
-
 
   static int getNumberRepetitionChar(String movie,char c)
   {
@@ -679,7 +681,6 @@ public class Driver {
 
     public static void main (String[]args)
     {
-        Movie [][] allMovies;
 
         String part1_manifest = "part1_manifest.txt";
 
@@ -689,12 +690,103 @@ public class Driver {
 
         allMovies = do_part3(part3_manifest);
 
-        //testing the array,
-        for (int i=0;i<173;i++)
-        {
-            System.out.println(allMovies[4][i]);
-        }
+
         //ARRAY IS DONE NOW ITS TIME FOR THE MENU
 
+        menu();
+
+    }
+
+    public static void menu()
+    {
+        Scanner input = new Scanner(System.in);
+        String previousGenreChoice = "musical";
+        int previousRow = 0;
+        String choiceMainMenu="";
+
+        do {
+            choiceMainMenu = getValidChoiceMainMenu(previousGenreChoice, previousRow, input);
+            switch (choiceMainMenu) {
+
+                //CASE S FINISHED
+                case "s": {
+                    int choiceSubMenu = getValidChoiceSubMenu(input);
+                    previousGenreChoice = VALID_GENRES[choiceSubMenu - 1];
+                    previousRow = choiceSubMenu - 1;
+                    break;
+
+                }
+                case "n": {
+                    System.out.println("You chose n");
+                    break;
+
+                }
+                //CASE X FINISHED
+                case "x": {
+                    System.out.println("Thank you for using the online movie catalog goodbye!");
+                    System.exit(0);
+                }
+            }
+        }while (choiceMainMenu.equalsIgnoreCase("x")==false);
+    }
+
+    static void displayMenu(String previousGenreChoice, int previousRow)
+    {
+        System.out.print("--------------------------------------------\n\t\t\t\tMain Menu\n--------------------------------------------"+
+                "\ns Select a movie\nn navigate "+previousGenreChoice+" movies ("+getNumberOfMovies(previousRow)+" movies)"+"\nx exit\n--------------------------------------------\n\n"
+        +"Enter your choice: ");
+    }
+
+    static void displaySubMenu()
+    {
+        System.out.println("--------------------------------------------\n\t\t\t\tGenre Sub-Menu\n--------------------------------------------");
+        //each row
+        for (int i =0;i<allMovies.length;i++)
+        {
+            System.out.println(i+1+"\t\t"+VALID_GENRES[i]+"\t\t\t ("+getNumberOfMovies(i)+" movies)");
+        }
+        System.out.println("--------------------------------------------\nEnter your choice: ");
+
+    }
+
+    static int getNumberOfMovies( int positionRow)
+    {
+        int count=0;
+        for (int i=0;i<allMovies[positionRow].length;i++)
+        {
+            if (allMovies[positionRow][i]!=null)
+            {
+                count++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        return count;
+    }
+
+    static String getValidChoiceMainMenu(String previousGenreChoice,int previousRow, Scanner input)
+    {
+        displayMenu(previousGenreChoice,previousRow);
+        String choice = input.next();
+        while (choice.equalsIgnoreCase("s")==false&&choice.equalsIgnoreCase("n")==false&&choice.equalsIgnoreCase("x")==false)
+        {
+            System.out.print("\nThis is not a valid choice please try again: ");
+            choice = input.next();
+        }
+        return choice.toLowerCase();
+    }
+
+    static int getValidChoiceSubMenu(Scanner input)
+    {
+        displaySubMenu();
+        int choice =input.nextInt();
+        while (choice>17||choice<1)
+        {
+            System.out.print("\nThis is not a valid choice please try again: ");
+            choice = input.nextInt();
+        }
+        return choice;
     }
 }
