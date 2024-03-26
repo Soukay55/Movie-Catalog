@@ -9,7 +9,7 @@ public class Driver {
 
     final static String []VALID_RATINGS ={"PG","Unrated","G","R","PG-13","NC-17"};
 
-    static Movie [][] allMovies;
+
   static int getIndexChar(String movie,char c,int nbRepetitions)
   {
       int count =0;
@@ -682,30 +682,45 @@ public class Driver {
     public static void main (String[]args)
     {
 
-        String part1_manifest = "part1_manifest.txt";
+        String part1_manifest = "part1_manifest.txt"; // creates path for part1_manifest
 
-        String part2_manifest= do_part1(part1_manifest);
+        String part2_manifest= do_part1(part1_manifest); // sorts the movies and gives the path to part2_manifest
 
-        String part3_manifest = do_part2(part2_manifest);
+        String part3_manifest = do_part2(part2_manifest); //serializes the movies in genre binary files
 
-        allMovies = do_part3(part3_manifest);
+        allMovies = do_part3(part3_manifest); //deserializes the movies and returns a 2D array of all the movies
 
-
-        //ARRAY IS DONE NOW ITS TIME FOR THE MENU
-
-        menu();
+        menu();//the menu operations
 
     }
+    static Movie [][] allMovies;
+
+    static int savedIndexComedy=0;
+    static int savedIndexAnimation=0;
+    static int savedIndexAdventure=0;
+    static int savedIndexDrama=0;
+    static int savedIndexCrime=0;
+    static int savedIndexBiography=0;
+    static int savedIndexHorror=0;
+    static int savedIndexAction=0;
+    static int savedIndexDocumentary=0;
+    static int savedIndexFantasy=0;
+    static int savedIndexFamily=0;
+
+    static int [] allSavedIndexes = {0,savedIndexComedy,savedIndexAnimation,savedIndexAdventure,savedIndexDrama,savedIndexCrime
+            ,savedIndexBiography,savedIndexHorror,savedIndexAction,savedIndexDocumentary,savedIndexFantasy,0,0,savedIndexFamily,0,0};
+
+    static String previousGenreChoice = "musical";
+    static  int previousRow = 0;
+    static String choiceMainMenu="";
+    static int numberOfMovieRecordTodisplay =0;
 
     public static void menu()
     {
         Scanner input = new Scanner(System.in);
-        String previousGenreChoice = "musical";
-        int previousRow = 0;
-        String choiceMainMenu="";
 
         do {
-            choiceMainMenu = getValidChoiceMainMenu(previousGenreChoice, previousRow, input);
+            choiceMainMenu = getValidChoiceMainMenu(input);
             switch (choiceMainMenu) {
 
                 //CASE S FINISHED
@@ -718,25 +733,27 @@ public class Driver {
                 }
                 //TO DO
                 case "n": {
-                    System.out.println("Navigating "+previousGenreChoice+" movies ("+getNumberOfMovies(previousRow)+")");
-                    System.out.print("Enter your choice: ");
-                    int n = input.nextInt();
-                    if(n==0)
+                    if(getNumberOfMovies(previousRow)==0)
                     {
-                        break;
+                        System.out.println("There are no movies of this genre");
                     }
-                    else if(n>0)
-                    {
-                        System.out.println("The movie at n = "+n+": "+allMovies[previousRow][n-1]);
-                    }
-                    else
-                    {
-                        System.out.println("The movie at n = "+n+": "+allMovies[previousRow][n-1]);
+                    else {
+                        System.out.println("Navigating " + previousGenreChoice + " movies (" + getNumberOfMovies(previousRow) + ")");
+                        System.out.print("Enter your choice: ");
+                        int n = input.nextInt();
+                        if (n == 0) {
+                            break;
+                        }
+                        else if (n > 0) {
+
+                            navigatePositiveN(n);
+                        }
+                        else {
+                            navigateNegativeN(n);
+                        }
                     }
                     break;
-
                 }
-                //CASE X FINISHED
                 case "x": {
                     System.out.println("Thank you for using the online movie catalog goodbye!");
                     System.exit(0);
@@ -745,13 +762,54 @@ public class Driver {
         }while (choiceMainMenu.equalsIgnoreCase("x")==false);
     }
 
-    static void displayMenu(String previousGenreChoice, int previousRow)
+    static void navigatePositiveN(int n)
+    {
+        if (n - 1 < allMovies[previousRow].length) {
+            numberOfMovieRecordTodisplay += (allSavedIndexes[previousRow] + (n - 1)); //position in array
+            if (numberOfMovieRecordTodisplay >= 173) {
+                numberOfMovieRecordTodisplay = allSavedIndexes[previousRow];
+            }
+            System.out.println(numberOfMovieRecordTodisplay);
+            for (int i = allSavedIndexes[previousRow]; i <= numberOfMovieRecordTodisplay; i++) {
+                System.out.println("The movie at position: " + (i + 1) + ": " + allMovies[previousRow][i]);
+            }
+            allSavedIndexes[previousRow] = numberOfMovieRecordTodisplay;
+            numberOfMovieRecordTodisplay = 0;
+        }
+        else {
+            System.out.println("EOF has been reached");
+            for (int i = allSavedIndexes[previousRow]; i < allMovies[previousRow].length; i++) {
+                System.out.println("The movie at position: " + (i + 1) + ": " + allMovies[previousRow][i]);
+            }
+            allSavedIndexes[previousRow] = allMovies[previousRow].length - 1;
+        }
+    }
+
+    static void navigateNegativeN(int n)
+    {
+        int nAbs = Math.abs(n);
+
+        if (nAbs - 1 > allSavedIndexes[previousRow]) {
+            for (int i = 0; i <= allSavedIndexes[previousRow]; i++) {
+                System.out.println("The movie at position: " + (i + 1) + ": " + allMovies[previousRow][i]);
+            }
+            allSavedIndexes[previousRow] = 0;
+        } else {
+
+            int start = allSavedIndexes[previousRow] - (nAbs - 1);
+
+            for (int i = start; i <= allSavedIndexes[previousRow]; i++) {
+                System.out.println("The movie at position: " + (i + 1) + ": " + allMovies[previousRow][i]);
+            }
+            allSavedIndexes[previousRow] = start;
+        }
+    }
+    static void displayMenu()
     {
         System.out.print("--------------------------------------------\n\t\t\t\tMain Menu\n--------------------------------------------"+
                 "\ns Select a movie\nn navigate "+previousGenreChoice+" movies ("+getNumberOfMovies(previousRow)+" movies)"+"\nx exit\n--------------------------------------------\n\n"
         +"Enter your choice: ");
     }
-
     static void displaySubMenu()
     {
         System.out.println("--------------------------------------------\n\t\t\t\tGenre Sub-Menu\n--------------------------------------------");
@@ -763,13 +821,13 @@ public class Driver {
         System.out.println("--------------------------------------------\nEnter your choice: ");
 
     }
-
-    static int getNumberOfMovies( int positionRow)
+    static int getNumberOfMovies(int previousRow)
     {
+
         int count=0;
-        for (int i=0;i<allMovies[positionRow].length;i++)
+        for (int i=0;i<allMovies[previousRow].length;i++)
         {
-            if (allMovies[positionRow][i]!=null)
+            if (allMovies[previousRow][i]!=null)
             {
                 count++;
             }
@@ -781,9 +839,9 @@ public class Driver {
         return count;
     }
 
-    static String getValidChoiceMainMenu(String previousGenreChoice,int previousRow, Scanner input)
+    static String getValidChoiceMainMenu(Scanner input)
     {
-        displayMenu(previousGenreChoice,previousRow);
+        displayMenu();
         String choice = input.next();
         while (choice.equalsIgnoreCase("s")==false&&choice.equalsIgnoreCase("n")==false&&choice.equalsIgnoreCase("x")==false)
         {
