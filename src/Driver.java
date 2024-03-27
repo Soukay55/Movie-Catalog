@@ -9,7 +9,20 @@ public class Driver {
 
     final static String []VALID_RATINGS ={"PG","Unrated","G","R","PG-13","NC-17"};
 
-
+    static int validIntegerInput(Scanner input){
+        int integerInput=0;
+        boolean valid = false;
+        do{
+            if(input.hasNextInt()){
+                integerInput = input.nextInt();
+                valid=true;
+            }else {
+                System.out.print("Invalid value. Please enter an integer:");
+                input.next();
+            }
+        }while (!valid);
+        return integerInput;
+    }
   static int getIndexChar(String movie,char c,int nbRepetitions)
   {
       int count =0;
@@ -740,7 +753,7 @@ public class Driver {
                     else {
                         System.out.println("Navigating " + previousGenreChoice + " movies (" + getNumberOfMovies(previousRow) + ")");
                         System.out.print("Enter your choice: ");
-                        int n = input.nextInt();
+                        int n = validIntegerInput(input);
                         if (n == 0) {
                             break;
                         }
@@ -854,7 +867,7 @@ public class Driver {
     static int getValidChoiceSubMenu(Scanner input)
     {
         displaySubMenu();
-        int choice =input.nextInt();
+        int choice =validIntegerInput(input);
         while (choice>17||choice<1)
         {
             System.out.print("\nThis is not a valid choice please try again: ");
