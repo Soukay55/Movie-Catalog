@@ -1,6 +1,15 @@
 import java.lang.invoke.SwitchPoint;
 import java.util.Scanner;
 import java.io.*;
+
+
+/**
+ * Assignment 2 - COMP 249
+ * Due : March 27th, 2024
+ * Written by : Wissem Oumsalem (40291712)
+ *              Soukayna Haitami (40280964)
+ *
+ */
 public class Driver {
 
     final static String [] VALID_GENRES= {"musical","comedy","animation","adventure","drama","crime","biography",
@@ -10,6 +19,10 @@ public class Driver {
     final static String []VALID_RATINGS ={"PG","Unrated","G","R","PG-13","NC-17"};
 
     static int validIntegerInput(Scanner input){
+        /**
+         * Method to validate if the user's input is an integer to prevent the program from crashing
+         * @return
+         */
         int integerInput=0;
         boolean valid = false;
         do{
