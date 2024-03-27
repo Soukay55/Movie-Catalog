@@ -1,11 +1,20 @@
 import java.io.Serializable;
+
 /**
  * The Movie class represents a movie with various attributes such as year, title, duration, genre, rating,
  * score, director, and actors. It implements the Serializable interface to allow objects of this class to be
  * serialized and deserialized.
  */
-public class Movie implements Serializable {
 
+/**
+ * Wissem Oumsalem (40291712) <br>
+ * Soukayna Haitami (40280964) <br>
+ * COMP 249 <br>
+ * Assignment #2 <br>
+ * Due : March 27th, 2024
+ *
+ */
+public class Movie implements Serializable {
 
     /**
      * The year of the movie.

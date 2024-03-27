@@ -4,10 +4,11 @@ import java.io.*;
 
 
 /**
- * Assignment 2 - COMP 249
+ * Wissem Oumsalem (40291712) <br>
+ * Soukayna Haitami (40280964) <br>
+ * COMP 249 <br>
+ * Assignment #2 <br>
  * Due : March 27th, 2024
- * Written by : Wissem Oumsalem (40291712)
- *              Soukayna Haitami (40280964)
  *
  */
 public class Driver {
