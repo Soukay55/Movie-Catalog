@@ -803,6 +803,8 @@ public class Driver {
         int nAbs = Math.abs(n);
 
         if (nAbs - 1 > allSavedIndexes[previousRow]) {
+
+            System.out.println("BOF has been reached");
             for (int i = 0; i <= allSavedIndexes[previousRow]; i++) {
                 System.out.println("The movie at position: " + (i + 1) + ": " + allMovies[previousRow][i]);
             }
