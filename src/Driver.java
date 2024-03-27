@@ -12,17 +12,24 @@ import java.io.*;
  */
 public class Driver {
 
-    final static String [] VALID_GENRES= {"musical","comedy","animation","adventure","drama","crime","biography",
-    "horror","action","documentary","fantasy","mystery","sci-fi","family","romance","thriller",
-    "western"};
+    /**
+     * Array containing the valid genres for movies.
+     */
+    public final static String[] VALID_GENRES = {"musical", "comedy", "animation", "adventure", "drama", "crime", "biography",
+            "horror", "action", "documentary", "fantasy", "mystery", "sci-fi", "family", "romance", "thriller",
+            "western"};
 
-    final static String []VALID_RATINGS ={"PG","Unrated","G","R","PG-13","NC-17"};
+    /**
+     * Array containing the valid ratings for movies.
+     */
+    public final static String[] VALID_RATINGS = {"PG", "Unrated", "G", "R", "PG-13", "NC-17"};
 
-    static int validIntegerInput(Scanner input){
-        /**
-         * Method to validate if the user's input is an integer to prevent the program from crashing
-         * @return
-         */
+    /**
+     * Method to validate if the user's input is an integer to prevent the program from crashing
+     * @param input is the input of the user that is to validate
+     * @return the valid integer input
+     */
+    public static int validIntegerInput(Scanner input){
         int integerInput=0;
         boolean valid = false;
         do{
@@ -36,40 +43,56 @@ public class Driver {
         }while (!valid);
         return integerInput;
     }
-  static int getIndexChar(String movie,char c,int nbRepetitions)
-  {
-      int count =0;
-      int index=0;
 
-      for(int i=0;i<movie.length();i++)
-      {
-          if(movie.charAt(i)==c)
-          {
-              count++;
-              if (count==nbRepetitions)
-              {
-                  index=i;
-                  break;
-              }
+    /**
+     * Finds the index of the nth occurrence of a specified character in a string.
+     *
+     * @param movie         The string (a movie record) in which to search for the character.
+     * @param c             The character to find the index of.
+     * @param nthRepetition The nth character to find.
+     * @return              The index of the nth occurrence of the character in the string,
+     *                      or 0 if the character is not found or if nthRepetition is less than 1.
+     */
+    public static int getIndexChar(String movie,char c,int nthRepetition) {
+        int count =0;
+        int index=0;
 
-          }
-      }
-      return index;
+        for(int i=0;i<movie.length();i++) {
+            if(movie.charAt(i)==c) {
+                count++;
+                if (count==nthRepetition) {
+                    index=i;
+                    break;
+                }
+            }
+        }
+        return index;
   }
 
-  static int getNumberRepetitionChar(String movie,char c)
-  {
-      int count=0;
-      for(int i=0;i<movie.length();i++) {
-          if (movie.charAt(i) == c) {
-              count++;
-          }
-      }
-      return count;
+    /**
+     * Counts the number of occurrences of a specified character in a string.
+     *
+     * @param movie The string (a movie record) in which to count occurrences of the character.
+     * @param c     The character to count occurrences of.
+     * @return      The number of times the character was repeated in the string.
+     */
+  public static int getNumberRepetitionChar(String movie,char c) {
+        int count=0;
+        for(int i=0;i<movie.length();i++) {
+            if (movie.charAt(i) == c) {
+                count++;
+            }
+        }
+        return count;
   }
-
-  static boolean indexEmptyField(String movie)
-  {
+    /**
+     * Checks if there is an empty field between two consecutive commas in a string.
+     *
+     * @param movie The string (movie record) to check for empty fields.
+     * @return      True if there is an empty field between two consecutive commas,
+     *              otherwise false.
+     */
+  public static boolean indexEmptyField(String movie) {
       boolean yes = false;
       int index=0;
       for (int i=1;i<movie.length();i++)
@@ -85,8 +108,13 @@ public class Driver {
       return yes;
   }
 
-    static boolean containsOnlyNumbers(String str)
-    {
+    /**
+     * Checks if a string contains only numeric characters.
+     *
+     * @param str The string (movie record) to check.
+     * @return    True if the string contains only numeric characters, otherwise false.
+     */
+    public static boolean containsOnlyNumbers(String str) {
         boolean yes = true;
         for (int i=0;i<str.length();i++)
         {
@@ -99,8 +127,13 @@ public class Driver {
         return yes;
     }
 
-    static boolean containsOnlyNumbersAndPoint(String str)
-    {
+    /**
+     * Checks if a string contains only numeric characters and '.' character.
+     *
+     * @param str The string (movie record) to check.
+     * @return    True if the string contains only numeric characters and '.', otherwise false.
+     */
+    public static boolean containsOnlyNumbersAndPoint(String str) {
         boolean yes = true;
         for (int i=0;i<str.length();i++)
         {
@@ -113,8 +146,13 @@ public class Driver {
         return yes;
     }
 
-    static int getNbIgnoredCommas(String movie)
-    {
+    /**
+     * Counts the number of commas to ignore within two quotes in a string.
+     *
+     * @param movie The string (movie record) to search for quoted substrings.
+     * @return      The number of commas that are ignored within the quoted substring.
+     */
+    public static int getNbIgnoredCommas(String movie) {
         int ignoreCommas =0;
         int firstIndexOfQuotes = getIndexChar(movie,'"',1);
         int lastIndexOfQuotes = getIndexChar(movie,'"',2);
@@ -126,24 +164,41 @@ public class Driver {
         }
         return ignoreCommas;
     }
+    //------------------------------------------------------------------------------------------
+    //---------------------------GET THE MOVIE RECORDS ATTRIBUTES-------------------------------
+    //------------------------------------------------------------------------------------------
 
-
-    static int getYear(String movie)
-    {
+    /**
+     * Get the year from a movie string.
+     *
+     * @param movie The movie string (movie record) containing the year.
+     * @return      The year from the movie string.
+     */
+    public static int getYear(String movie) {
         String year = movie.substring(0,getIndexChar(movie,',',1));
 
         return Integer.parseInt(year);
     }
 
-    static String getTitle(String movie)
-    {
+    /**
+     * Get the title from a movie string.
+     *
+     * @param movie The movie string (movie record) containing the title.
+     * @return      The title from the movie string.
+     */
+    public static String getTitle(String movie) {
         int ignoreCommas = getNbIgnoredCommas(movie);
         String title = movie.substring(getIndexChar(movie,',',1)+1,getIndexChar(movie,',',2+ignoreCommas));
         return title;
     }
 
-    static int getDuration(String movie)
-    {
+    /**
+     * Get the duration from a movie string.
+     *
+     * @param movie The movie string (movie record) containing the duration.
+     * @return      The duration from the movie string.
+     */
+    public static int getDuration(String movie) {
         int ignoreCommas = getNbIgnoredCommas(movie);
         int indexDuration1 = getIndexChar(movie,',',ignoreCommas+2)+1;
         int indexDuration2 = getIndexChar(movie,',',ignoreCommas+3);
@@ -151,8 +206,13 @@ public class Driver {
         return Integer.parseInt(duration);
     }
 
-    static String getRating(String movie)
-    {
+    /**
+     * Get the rating from a movie string.
+     *
+     * @param movie The movie string (movie record) containing the rating.
+     * @return      The rating from the movie string.
+     */
+    public static String getRating(String movie) {
         int ignoreCommas = getNbIgnoredCommas(movie);
         int indexRating1 = getIndexChar(movie,',',4+ignoreCommas)+1;
         int indexRating2 = getIndexChar(movie,',',5+ignoreCommas);
@@ -160,8 +220,13 @@ public class Driver {
         return rating;
     }
 
-    static double getScore(String movie)
-    {
+    /**
+     * Get the score from a movie string.
+     *
+     * @param movie The movie string (movie record) containing the score.
+     * @return      The score from the movie string.
+     */
+    public static double getScore(String movie) {
         int ignoreCommas = getNbIgnoredCommas(movie);
         int indexScore1 = getIndexChar(movie,',',5+ignoreCommas)+1;
         int indexScore2 = getIndexChar(movie,',',6+ignoreCommas);
@@ -169,8 +234,13 @@ public class Driver {
         return Double.parseDouble(score);
     }
 
-    static String getGenre(String movie)
-    {
+    /**
+     * Get the genre from a movie string.
+     *
+     * @param movie The movie string (movie record) containing the genre.
+     * @return      The genre from the movie string.
+     */
+    public static String getGenre(String movie) {
         int ignoreCommas = getNbIgnoredCommas(movie);
         //this is the genre of the movie
         int firstIndexOfGenre=getIndexChar(movie,',',3+ignoreCommas)+1;
@@ -179,8 +249,13 @@ public class Driver {
         return genre;
     }
 
-    static String getDirector(String movie)
-    {
+    /**
+     * Get the director from a movie string.
+     *
+     * @param movie The movie string (movie record) containing the director.
+     * @return      The director from the movie string.
+     */
+    public static String getDirector(String movie) {
         int ignoreCommas = getNbIgnoredCommas(movie);
         int indexDir = getIndexChar(movie,',',6+ignoreCommas)+1;
         int indexDir2 = getIndexChar(movie,',',7+ignoreCommas);
@@ -188,34 +263,64 @@ public class Driver {
 
     }
 
-    static String getActor1(String movie)
-    {
+    /**
+     * Get the first actor from a movie string.
+     *
+     * @param movie The movie string (movie record) containing the first actor.
+     * @return      The first actor from the movie string.
+     */
+    public static String getActor1(String movie) {
         int ignoreCommas = getNbIgnoredCommas(movie);
         int index1 = getIndexChar(movie,',',7+ignoreCommas)+1;
         int index2 = getIndexChar(movie,',',8+ignoreCommas);
         return movie.substring(index1,index2);
-
     }
-    static String getActor2(String movie)
-    {
+
+    /**
+     * Get the second actor from a movie string.
+     *
+     * @param movie The movie string (movie record) containing the second actor.
+     * @return      The second actor from the movie string.
+     */
+    public static String getActor2(String movie) {
         int ignoreCommas = getNbIgnoredCommas(movie);
         int index1 = getIndexChar(movie,',',8+ignoreCommas)+1;
         int index2 = getIndexChar(movie,',',9+ignoreCommas);
         return movie.substring(index1,index2);
-
     }
-    static String getActor3(String movie)
-    {
+
+    /**
+     * Get the third actor from a movie string.
+     *
+     * @param movie The movie string (movie record) containing the third actor.
+     * @return      The third actor from the movie string.
+     */
+    public static String getActor3(String movie) {
         int ignoreCommas = getNbIgnoredCommas(movie);
         int index1 = getIndexChar(movie,',',9+ignoreCommas)+1;
         return movie.substring(index1);
 
     }
+    //------------------------------------------------------------------------------------------
+    //------------------------------------DO_PART1 METHOD-------------------------------------
+    //------------------------------------------------------------------------------------------
 
 
+    /**
+     * Partitions movie records from input files specified in the manifest file into CSV files, each storing
+     * valid movie records from the same genre. This method creates a total of 19 text files:
+     * - A file named bad_movie_records.txt storing the movie records with syntax or semantic errors
+     *     (i.e., the invalid records)
+     * - 17 CSV files, each storing valid movie records in a specific genre, to be used as input in Part 2.
+     *     The file names are created by appending the text ".csv" to each of the 17 possible genres.
+     * - A manifest file named part2_manifest.txt storing the names of the CSV files produced above,
+     *     also to be used as input in Part 2.
+     *
+     * @param path The path to the manifest file storing the names of the input files supplied by Mr. Filmbuff.
+     * @return The path of the manifest file (part2_manifest.txt) storing the names of the CSV files produced.
 
-    public static String do_part1(String path)
-    {
+     */
+    public static String do_part1(String path) {
         File part2_manifest = new File("part2_manifest.txt");
         File bad_movie_records = new File("bad_movie_records.txt");
         File comedy = new File("comedy.csv");
@@ -548,6 +653,21 @@ public class Driver {
         return part2_manifest.getPath();
     }
 
+    //------------------------------------------------------------------------------------------
+    //------------------------------------DO_PART2 METHOD-------------------------------------
+    //------------------------------------------------------------------------------------------
+
+    /**
+     * Serializes arrays of Movie records loaded from CSV files into binary files.
+     * For each CSV file named in part2_manifest.txt, this method copy the records
+     * from the file ia an array of Movie objects to then serialize it
+     * into a binary file (gender.ser)
+     *
+     * @param path The path to the part2_manifest.txt file containing the names of
+     *             all the CSV files to be analyzed.
+     * @return The path of the manifest file (part3_manifest.txt) storing the names
+     *         of the binary files produced.
+     */
     public static String do_part2(String path)
     {
         PrintWriter writer = null;
@@ -656,8 +776,22 @@ public class Driver {
         return part3_manifest.getPath();
     }
 
-    static Movie [][] do_part3(String path)
-    {
+    //------------------------------------------------------------------------------------------
+    //------------------------------------DO_PART3 METHOD-------------------------------------
+    //------------------------------------------------------------------------------------------
+
+    /**
+     * Deserializes arrays of Movie objects from binary files specified in the part3_manifest.txt file.
+     * which will creates and returns a 2D array of type Movie[][] (movie objects) for each
+     * binary files named in part3_manifest.txt.
+     * All_movies[i][j], where the i'th is the genre (0-16) and the j'th is the movie object
+     * within the array of the genre
+     *
+     * @param path The path to the part3_manifest.txt file containing the names of binary files to be deserialized.
+     * @return A 2D array of Movie objects, where all_movies[i][j] represents the j'th Movie object within the
+     *         array of all movies of genre i.
+     */
+    public static Movie [][] do_part3(String path) {
         Movie [][] allMovies = new Movie[17][173];
         Scanner scannerManifest = null;
         ObjectInputStream ois = null;
@@ -705,6 +839,10 @@ public class Driver {
         return allMovies;
     }
 
+    //------------------------------------------------------------------------------------------
+    //---------------------------------------MAIN-----------------------------------------------
+    //------------------------------------------------------------------------------------------
+
     public static void main (String[]args)
     {
 
@@ -719,30 +857,99 @@ public class Driver {
         menu();//the menu operations
 
     }
-    static Movie [][] allMovies;
+    /**
+     * A 2D array containing Movie objects. Each element allMovies[i][j] represents the j'th Movie object within
+     * the array of all movies of genre i.
+     */
+    public static Movie [][] allMovies;
 
-    static int savedIndexComedy=0;
-    static int savedIndexAnimation=0;
-    static int savedIndexAdventure=0;
-    static int savedIndexDrama=0;
-    static int savedIndexCrime=0;
-    static int savedIndexBiography=0;
-    static int savedIndexHorror=0;
-    static int savedIndexAction=0;
-    static int savedIndexDocumentary=0;
-    static int savedIndexFantasy=0;
-    static int savedIndexFamily=0;
+    /**
+     * Static variable to store the saved index of comedy movies.
+     */
+    public static int savedIndexComedy = 0;
 
-    static int [] allSavedIndexes = {0,savedIndexComedy,savedIndexAnimation,savedIndexAdventure,savedIndexDrama,savedIndexCrime
-            ,savedIndexBiography,savedIndexHorror,savedIndexAction,savedIndexDocumentary,savedIndexFantasy,0,0,savedIndexFamily,0,0};
+    /**
+     * Static variable to store the saved index of animation movies.
+     */
+    public static int savedIndexAnimation = 0;
 
-    static String previousGenreChoice = "musical";
-    static  int previousRow = 0;
-    static String choiceMainMenu="";
-    static int numberOfMovieRecordTodisplay =0;
+    /**
+     * Static variable to store the saved index of adventure movies.
+     */
+    public static int savedIndexAdventure = 0;
 
-    public static void menu()
-    {
+    /**
+     * Static variable to store the saved index of drama movies.
+     */
+    public static int savedIndexDrama = 0;
+
+    /**
+     * Static variable to store the saved index of crime movies.
+     */
+    public static int savedIndexCrime = 0;
+
+    /**
+     * Static variable to store the saved index of biography movies.
+     */
+    public static int savedIndexBiography = 0;
+
+    /**
+     * Static variable to store the saved index of horror movies.
+     */
+    public static int savedIndexHorror = 0;
+
+    /**
+     * Static variable to store the saved index of action movies.
+     */
+    public static int savedIndexAction = 0;
+
+    /**
+     * Static variable to store the saved index of documentary movies.
+     */
+    public static int savedIndexDocumentary = 0;
+
+    /**
+     * Static variable to store the saved index of fantasy movies.
+     */
+    public static int savedIndexFantasy = 0;
+
+    /**
+     * Static variable to store the saved index of family movies.
+     */
+    public static int savedIndexFamily = 0;
+
+    /**
+     * Array to store all saved indexes of different movie genres.
+     */
+    public static int[] allSavedIndexes = {0, savedIndexComedy, savedIndexAnimation, savedIndexAdventure,
+            savedIndexDrama, savedIndexCrime, savedIndexBiography, savedIndexHorror, savedIndexAction,
+            savedIndexDocumentary, savedIndexFantasy, 0, 0, savedIndexFamily, 0, 0};
+
+    /**
+     * Variable to store the previous genre choice.
+     */
+    public static String previousGenreChoice = "musical";
+
+    /**
+     * Variable to store the previous row.
+     */
+    public static int previousRow = 0;
+
+    /**
+     * Variable to store the choice made in the main menu.
+     */
+    public static String choiceMainMenu = "";
+
+    /**
+     * Variable to store the number of movie records to display.
+     */
+    public static int numberOfMovieRecordTodisplay = 0;
+
+
+    /**
+     * Displays the main menu and handles user input.
+     */
+    public static void menu() {
         Scanner input = new Scanner(System.in);
 
         do {
@@ -788,8 +995,12 @@ public class Driver {
         }while (choiceMainMenu.equalsIgnoreCase("x")==false);
     }
 
-    static void navigatePositiveN(int n)
-    {
+    /**
+     * Navigates to movie records below the current position.
+     *
+     * @param n The number of records to navigate below the current position.
+     */
+    public static void navigatePositiveN(int n) {
         if (n - 1 < allMovies[previousRow].length) {
             numberOfMovieRecordTodisplay += (allSavedIndexes[previousRow] + (n - 1)); //position in array
             if (numberOfMovieRecordTodisplay >= 173) {
@@ -811,8 +1022,12 @@ public class Driver {
         }
     }
 
-    static void navigateNegativeN(int n)
-    {
+    /**
+     * Navigates to movie records above the current position.
+     *
+     * @param n The number of records to navigate above the current position.
+     */
+    public static void navigateNegativeN(int n) {
         int nAbs = Math.abs(n);
 
         if (nAbs - 1 > allSavedIndexes[previousRow]) {
@@ -832,14 +1047,18 @@ public class Driver {
             allSavedIndexes[previousRow] = start;
         }
     }
-    static void displayMenu()
-    {
+    /**
+     * Displays the main menu.
+     */
+    public static void displayMenu() {
         System.out.print("--------------------------------------------\n\t\t\t\tMain Menu\n--------------------------------------------"+
                 "\ns Select a movie\nn navigate "+previousGenreChoice+" movies ("+getNumberOfMovies(previousRow)+" movies)"+"\nx exit\n--------------------------------------------\n\n"
         +"Enter your choice: ");
     }
-    static void displaySubMenu()
-    {
+    /**
+     * Displays the genre sub-menu.
+     */
+    public static void displaySubMenu() {
         System.out.println("--------------------------------------------\n\t\t\t\tGenre Sub-Menu\n--------------------------------------------");
         //each row
         for (int i =0;i<allMovies.length;i++)
@@ -849,9 +1068,13 @@ public class Driver {
         System.out.println("--------------------------------------------\nEnter your choice: ");
 
     }
-    static int getNumberOfMovies(int previousRow)
-    {
-
+    /**
+     * Gets the number of movies in a genre array.
+     *
+     * @param previousRow The index of the genre array.
+     * @return The number of movies in the genre array.
+     */
+    public static int getNumberOfMovies(int previousRow) {
         int count=0;
         for (int i=0;i<allMovies[previousRow].length;i++)
         {
@@ -866,9 +1089,13 @@ public class Driver {
         }
         return count;
     }
-
-    static String getValidChoiceMainMenu(Scanner input)
-    {
+    /**
+     * Validates and retrieves a valid choice from the main menu input.
+     *
+     * @param input The Scanner object for user input.
+     * @return A valid choice from the main menu input.
+     */
+    public static String getValidChoiceMainMenu(Scanner input) {
         displayMenu();
         String choice = input.next();
         while (choice.equalsIgnoreCase("s")==false&&choice.equalsIgnoreCase("n")==false&&choice.equalsIgnoreCase("x")==false)
@@ -878,9 +1105,13 @@ public class Driver {
         }
         return choice.toLowerCase();
     }
-
-    static int getValidChoiceSubMenu(Scanner input)
-    {
+    /**
+     * Validates and retrieves a valid choice from the sub-menu input.
+     *
+     * @param input The Scanner object for user input.
+     * @return A valid choice from the sub-menu input.
+     */
+    public static int getValidChoiceSubMenu(Scanner input) {
         displaySubMenu();
         int choice =validIntegerInput(input);
         while (choice>17||choice<1)

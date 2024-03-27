@@ -1,12 +1,23 @@
-public class ExcessFieldsException extends Exception{
+/**
+ * The ExcessFieldsException class represents an exception that is thrown when excess fields are encountered.
+ * This exception extends the standard Exception class.
+ */
+public class ExcessFieldsException extends Exception {
 
-    public ExcessFieldsException()
-    {
+    /**
+     * Constructs an ExcessFieldsException with a default error message.
+     */
+    public ExcessFieldsException() {
         super("There are excess fields");
     }
 
-    public ExcessFieldsException(String message)
-    {
+    /**
+     * Constructs an ExcessFieldsException with the specified error message.
+     *
+     * @param message The error message.
+     */
+    public ExcessFieldsException(String message) {
         super(message);
     }
 }
+
