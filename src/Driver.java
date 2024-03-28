@@ -2,6 +2,10 @@ import java.lang.invoke.SwitchPoint;
 import java.util.Scanner;
 import java.io.*;
 
+// ---------------------------------------------------------------------
+// Assignment 2
+// Written by: Wissem Oumsalem (40291712) & Soukayna Haitami (40280964)
+// ---------------------------------------------------------------------
 
 /**
  * Wissem Oumsalem (40291712) <br>
